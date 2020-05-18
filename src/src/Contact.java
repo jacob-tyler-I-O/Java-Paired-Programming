@@ -24,9 +24,9 @@ public class Contact {
         return phoneNumber;
     }
 
-    public String ContactCreator() {
-        String NewContact = this.getFirstName()+ " " + this.getLastName() + ": " + this.getPhoneNumber();
-        return NewContact;
+    public String contactCreator() {
+        String newContact = this.getFirstName()+ " " + this.getLastName() + " | " + this.getPhoneNumber();
+        return newContact;
 
     }
 
