@@ -1,5 +1,6 @@
-public class ContactList {
+package src;
 
+public class ContactList {
 
 
 }
