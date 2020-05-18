@@ -59,9 +59,14 @@ public class ContactsApp {
                 addContact(firstName, lastName, phoneNumber);
                 contactsMenu();
             }
+            if(menuSelect == 3){
+                System.out.println("What contact would you like to search for?: ");
+                String search = scanner.next();
+                contactSearch(search, contactsFilePath);
+            }
     }
 
-
+//Menu option 1
     public static List<String> viewContacts(Path contacts, boolean print){
         List<String> lines;
         try{
@@ -86,10 +91,19 @@ public class ContactsApp {
     public static void writeFile(Path aFile, List<String> aList){
         try {
             Files.write(aFile, aList);
-//            Files.write(aFile, aList, StandardOpenOption.APPEND);
         } catch (IOException e){
             System.out.println("Problems writing in the file");
             e.printStackTrace();
         }
+    }
+
+    private void contactSearch(String needle, Path aFile) {
+        List<String> lines = viewContacts(aFile, false);
+        for (String line : lines) {
+            if(line.contains(needle)){
+                System.out.println(line);
+            }
+        }
+        contactsMenu();
     }
 }
