@@ -22,12 +22,8 @@ public class ContactsApp {
 
 
     public void addContact(String firstName, String lastName, String phoneNumber) {
-        src.Contact jacob = new src.Contact("Jacob", "Hensley", "1234567890");
-        src.Contact tyler = new src.Contact("Tyler", "Trudgeon", "0987654321");
         src.Contact contactName = new src.Contact(firstName, lastName, phoneNumber);
 
-        contactsList.add(jacob.contactCreator());
-        contactsList.add(tyler.contactCreator());
         contactsList.add(contactName.contactCreator());
 
 
