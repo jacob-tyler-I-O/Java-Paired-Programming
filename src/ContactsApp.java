@@ -1,9 +1,8 @@
-package src;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -26,10 +25,8 @@ public class ContactsApp {
 
         contactsList.add(contactName.contactCreator());
 
-
         writeFile(contactsFilePath, contactsList);
     }
-
 
     public void contactsMenu(){
         Scanner scanner = new Scanner(System.in);
@@ -55,10 +52,32 @@ public class ContactsApp {
                 addContact(firstName, lastName, phoneNumber);
                 contactsMenu();
             }
-            if(menuSelect == 3){
-                System.out.println("What contact would you like to search for?: ");
+            if (menuSelect == 3){
+                System.out.println("What contact would you like to search for?");
                 String search = scanner.next();
                 contactSearch(search, contactsFilePath);
+            }
+            if (menuSelect == 4){
+                String userInput = "";
+
+                List<String> lines = viewContacts(contactsFilePath, false);
+                System.out.println("What contact would you like to delete?");
+                String deleteSearch = scanner.next();
+                for (String line : lines) {
+
+                    if(line.contains(deleteSearch)){
+                        System.out.println("Are you sure you want to remove this contact? (y/n)\n" + line);
+                        userInput = scanner.next();
+
+                    }
+
+                    if(userInput.equals("y")){
+                        lines.remove(line);
+                        System.out.println(lines);
+                        writeFile(contactsFilePath, lines);
+                    }
+                }
+                contactsMenu();
             }
     }
 
@@ -83,10 +102,9 @@ public class ContactsApp {
         }
     }
 
-
     public static void writeFile(Path aFile, List<String> aList){
         try {
-            Files.write(aFile, aList);
+            Files.write(aFile, aList, StandardOpenOption.APPEND);
         } catch (IOException e){
             System.out.println("Problems writing in the file");
             e.printStackTrace();
